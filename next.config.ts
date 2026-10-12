@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Halaman publik membaca data yang bisa berubah kapan saja lewat panel admin,
+  // dan seluruh /admin bergantung pada cookies(). Prerender di sini hanya
+  // berisiko menyajikan data basi, jadi semua dirender saat request.
+  cacheComponents: false,
   turbopack: {
     rules: {
       "*.css": {

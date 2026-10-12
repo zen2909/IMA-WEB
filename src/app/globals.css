@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Token diambil dari logo IMA (lihat DESIGN.md).
+   Hijau #21C22E hanya untuk FILL — kontrasnya ke putih cuma ~1.9:1, jadi teks
+   hijau selalu memakai --color-brand-dark. */
+@theme {
+  --color-brand: #21c22e;
+  --color-brand-dark: #15803d;
+  --color-brand-darker: #0f5c24;
+  --color-brand-soft: #e8f8e9;
+  --color-brand-border: #b8e6ba;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-danger: #e11d2e;
+  --color-danger-soft: #fdecee;
+  --color-danger-txt: #b91c1c;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-gold: #ffd20a;
+  --color-gold-txt: #a16207;
+
+  --color-ink: #141a14;
+  --color-ink-muted: #5b6b5b;
+  --color-line: #e3eae3;
+  --color-surface: #f7faf7;
+  --color-page: #f8faf8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Fokus keyboard harus selalu terlihat; outline default Tailwind sering hilang
+   di atas elemen hijau. */
+:focus-visible {
+  outline: 2px solid var(--color-brand-dark);
+  outline-offset: 2px;
 }

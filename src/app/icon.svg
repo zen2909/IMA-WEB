@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Green Pentagon Base -->
+  <polygon points="24,4 44,18 36,42 12,42 4,18" fill="#21C22E" stroke="#15803D" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Inner White/Red Structure Accent -->
+  <polygon points="24,11 38,21 32,38 16,38 10,21" fill="#FFFFFF" fill-opacity="0.15" stroke="#FFFFFF" stroke-width="1.2"/>
+  <path d="M24 16 L24 35 M17 29 L31 29" stroke="#E11D2E" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Gold Star Accent -->
+  <polygon points="24,19 25.5,23 29.8,23 26.3,25.5 27.6,29.5 24,27 20.4,29.5 21.7,25.5 18.2,23 22.5,23" fill="#FFD20A" stroke="#B45309" stroke-width="0.5"/>
+</svg>

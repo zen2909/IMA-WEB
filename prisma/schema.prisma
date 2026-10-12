@@ -1,0 +1,80 @@
+// IMA — skema database
+// shortcut: belum ada tabel Periode, satu periode kepengurusan aktif saja.
+// Saat organisasi ganti pengurus, tambahkan kolom `periodeId` di model Anggota
+// (bukan tabel baru) — cukup untuk menyimpan riwayat, tanpa mengubah kode lain.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Divisi {
+  id         String   @id @default(cuid())
+  nama       String
+  slug       String   @unique
+  deskripsi  String?
+  visi       String?
+  misi       String?
+  kontak     String?
+  anggota    Anggota[]
+  programKerja ProgramKerja[]
+  createdAt  DateTime @default(now())
+}
+
+model ProgramKerja {
+  id     String @id @default(cuid())
+
+  judul   String
+  deskripsi String?
+
+  // RENCANA | BERJALAN | SELESAI
+  status String @default("RENCANA")
+
+  // Teks bebas, bukan tanggal: rencana kerja mahasiswa biasanya ditulis
+  // "semester genap 2026" atau "agustus", bukan tanggal pasti.
+  targetWaktu String?
+
+  divisiId String
+  // Cascade, bukan SetNull: program kerja tidak bermakna tanpa divisinya, jadi
+  // kalau divisi dihapus, program kerjanya ikut hilang. Berbeda dengan anggota
+  // yang tetap ada tanpa divisi.
+  divisi   Divisi  @relation(fields: [divisiId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([divisiId])
+}
+
+model Anggota {
+  id String @id @default(cuid())
+
+  nama     String
+  nim      String  @unique
+  prodi    String
+  angkatan Int
+  email    String  @unique
+  noHp     String?
+  fotoUrl  String?
+
+  // null = belum dibuatkan akun login
+  passwordHash String?
+
+  // SQLite tidak mendukung enum Prisma. Nilai yang sah (ANGGOTA, KEPALA_DIVISI,
+  // SEKRETARIS, BENDAHARA, WAKIL, KETUA) didefinisikan sebagai union type di
+  // src/lib/anggota.ts dan divalidasi sebelum writes.
+  peran    String @default("ANGGOTA")
+  divisiId String?
+  divisi   Divisi? @relation(fields: [divisiId], references: [id], onDelete: SetNull)
+
+  aktif    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([divisiId])
+  @@index([peran])
+}

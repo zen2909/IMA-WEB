@@ -1,0 +1,10 @@
+# Jaga baris akhir tetap LF di semua mesin, supaya tidak ada keflusukan baris
+# yang membuat diff membingungkan. Windows tetap bisa membuka file-nya.
+* text=auto eol=lf
+
+# Berkas biner tidak boleh disentuh oleh normalisasi baris akhir.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.ico binary
+*.db binary
